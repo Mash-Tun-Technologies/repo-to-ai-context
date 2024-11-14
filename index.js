@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const micromatch = require("micromatch");
 const {walk} = require("node-os-walk");
 const ignore = require("ignore");
 
@@ -26,6 +25,8 @@ async function listAndReadRepoFiles() {
         : [];
 
     const gitPatternsBlacklist = [
+        '.git',
+        'package-lock.json',
         'fullrepo.txt',
         'yarn.lock',
         '*.png',
@@ -45,10 +46,8 @@ async function listAndReadRepoFiles() {
         '*.mov',
         '*.avi'
     ];
-    gitIgnorePatterns.push(gitPatternsBlacklist)
+    gitIgnorePatterns.push(...gitPatternsBlacklist)
     const ig = ignore().add(gitIgnorePatterns);
-
-    const otherBlacklistPatterns = [".git/**/*", "package-lock.json"];
 
     const fileContents = {};
     console.log("Including files...");
@@ -57,7 +56,7 @@ async function listAndReadRepoFiles() {
             const filePath = path.resolve(root, file.name);
             const relativeFilePath = filePath.slice(rootPath.length + 1);
             // Exclude .gitignore and blacklist patterns
-            if (!ig.ignores(relativeFilePath) && !shouldIgnore(rootPath, filePath, otherBlacklistPatterns)) {
+            if (!ig.ignores(relativeFilePath)) {
                 console.log(relativeFilePath)
                 try {
                     fileContents[relativeFilePath] = fs.readFileSync(filePath, 'utf-8');
@@ -68,21 +67,6 @@ async function listAndReadRepoFiles() {
         }
     }
     return fileContents;
-}
-
-/**
- * Checks if a file path should be ignored based on .gitignore patterns.
- *
- * @param {string} rootPath - The absolute path to the root directory being checked.
- * @param {string} filePath - The file path to check.
- * @param {string[]} ignorePatterns - An array of .gitignore patterns.
- * @returns {boolean} - True if the file path should be ignored, false otherwise.
- */
-function shouldIgnore(rootPath, filePath, ignorePatterns) {
-    const relativePath = filePath.slice(rootPath.length + 1);
-    return ignorePatterns.some(pattern => {
-        return micromatch.isMatch(relativePath, pattern, {dot: true})
-    });
 }
 
 async function main() {
