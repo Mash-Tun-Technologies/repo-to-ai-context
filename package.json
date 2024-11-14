@@ -1,0 +1,30 @@
+{
+  "name": "@mashtuntech/repo-to-ai-context",
+  "version": "0.1.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "repo-to-ai-context": "index.js"
+  },
+  "keywords": [],
+  "author": "phil@bohnenkamptech.com",
+  "license": "MIT",
+  "description": "Node.js CLI application reads all files in the current directory, excluding those specified in the `.gitignore`\nfile and a hardcoded blacklist, and aggregates them into a single output file named `fullrepo.txt`.",
+  "dependencies": {
+    "ignore": "^6.0.2",
+    "ls-ignore": "^2.0.0",
+    "micromatch": "^4.0.8",
+    "node-os-walk": "^1.0.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mash-Tun-Technologies/repo-to-ai-context.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mash-Tun-Technologies/repo-to-ai-context/issues"
+  },
+  "homepage": "https://github.com/Mash-Tun-Technologies/repo-to-ai-context#readme"
+}
