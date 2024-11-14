@@ -13,6 +13,25 @@ When run from the root of your repository, it effectively builds a context you c
   *   `package-lock.json`
   *   `yarn.lock`
   *   `.git/**/*`
+  *   `fullrepo.txt`
+  *   `package-lock.json`
+  *   `yarn.lock`
+  *   `*.png`
+  *   `*.jpg`
+  *   `*.jpeg`
+  *   `*.gif`
+  *   `*.svg`
+  *   `*.ico`
+  *   `*.pdf`
+  *   `*.zip`
+  *   `*.tar.gz`
+  *   `*.rar`
+  *   `*.7z`
+  *   `*.mp3`
+  *   `*.mp4`
+  *   `*.wav`
+  *   `*.mov`
+  *   `*.av`
 * Aggregates file contents into a single output file (`fullrepo.txt`).
 * Wraps each file's content in an XML-like "envelope" with the file path as an attribute.
 ```
@@ -22,13 +41,13 @@ When run from the root of your repository, it effectively builds a context you c
 ```
 * Warns if the output file exceeds 10MB in size.
 
-## Installation
-
-```bash
-npm install @mashtuntech/repo-to-ai-context
-```
-
 ## Usage
 ```bash
+npx @mashtuntech/repo-to-ai-context@latest
+```
+
+You can install the package globally and run it without the @mashtuntech scope but be sure to update to latest version periodically
+```bash
+npm install -g @mashtuntech/repo-to-ai-context@latest
 npx repo-to-ai-context
 ```
