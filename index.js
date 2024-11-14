@@ -27,7 +27,6 @@ async function listAndReadRepoFiles() {
 
     const gitPatternsBlacklist = [
         'fullrepo.txt',
-        'package-lock.json',
         'yarn.lock',
         '*.png',
         '*.jpg',
@@ -49,10 +48,10 @@ async function listAndReadRepoFiles() {
     gitIgnorePatterns.push(gitPatternsBlacklist)
     const ig = ignore().add(gitIgnorePatterns);
 
-    const otherBlacklistPatterns = [".git/**/*"];
-
+    const otherBlacklistPatterns = [".git/**/*", "package-lock.json"];
 
     const fileContents = {};
+    console.log("Including files...");
     for await (const [root, _, files] of walk(rootPath)) {
         for (const file of files) {
             const filePath = path.resolve(root, file.name);
